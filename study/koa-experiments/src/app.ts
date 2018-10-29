@@ -32,6 +32,7 @@ function main(): void {
 
     app.use(router.routes()).use(router.allowedMethods())
 
+    log.info("start at http://localhost:12345/")
     app.listen(12345)
 }
 main()
