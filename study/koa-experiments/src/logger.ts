@@ -1,6 +1,7 @@
 import * as Winston from "winston"
 
-const _format = Winston.format;
+const _format = Winston.format
+
 export const _log: Winston.Logger = Winston.createLogger({
     level: 'info',
     transports: [
