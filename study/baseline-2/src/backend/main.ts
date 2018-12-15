@@ -15,6 +15,7 @@ const log: Logger = logger("main")
 
 
 import { ServerLoader, ServerSettings, GlobalAcceptMimesMiddleware } from "@tsed/common"
+import "@tsed/swagger"// import swagger Ts.ED module!!!
 import * as Express from "express"
 
 @ServerSettings({
@@ -69,7 +70,6 @@ export class Server extends ServerLoader {
 function main(): void {
     const s = new Server()
     s.start().catch(log.error)
-    log.info(JSON.stringify(s.httpServer))
 }
 main()
 
