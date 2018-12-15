@@ -1,0 +1,49 @@
+{
+  "name": "baseline-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run tsc",
+    "coverage": "npm run test-cov && npm run test-remap",
+    "postinstall": "npm run build",
+    "tslint": "tslint ./*.ts ./lib/*.ts",
+    "test": "mocha --reporter spec --check-leaks --bail test/",
+    "tsc": "tsc --project tsconfig.json",
+    "tsc:w": "tsc -w",
+    "start": "nodemon --watch '**/*.ts' --ignore 'node_modules/**/*' --exec ts-node src/backend/main.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tsed/common": "^4.33.0",
+    "@tsed/core": "^4.33.0",
+    "@tsed/swagger": "^4.33.0",
+    "@types/swagger-schema-official": "^2.0.14",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "method-override": "^3.0.0",
+    "mime": "^2.4.0",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/compression": "^0.0.36",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express": "^4.16.0",
+    "@types/method-override": "^0.0.31",
+    "@types/node": "^10.12.14",
+    "awesome-typescript-loader": "^5.2.1",
+    "file-loader": "^2.0.0",
+    "nodemon": "^1.18.9",
+    "source-map-loader": "^0.2.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.27.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "__npminstall_done": false
+}

@@ -1,5 +1,3 @@
-import { logger } from "./log"
-import { Logger } from "winston"
 import { BaseContext, Context } from "koa"
 
 import Koa = require("koa")
@@ -11,6 +9,10 @@ import Mime = require("mime")
 import OS = require("os")
 import Path = require("path")
 
+import * as Apis from "./apis_impls"
+
+import { logger } from "./log"
+import { Logger } from "winston"
 const log: Logger = logger("main")
 
 const compress_types: string[] = [
@@ -45,6 +47,8 @@ function main(): void {
         ctx.body = "test ok"
         ctx.type = Mime.getType("txt") || "text/html"
     }).get("/static/(.*)", _static) //there must be (.*), otherwise it wont be directed to static
+
+    Apis.mount(router)
 
     app.use(router.routes())
         .use(router.allowedMethods())

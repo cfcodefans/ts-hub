@@ -29,6 +29,7 @@
     "file-loader": "^2.0.0",
     "source-map-loader": "^0.2.4",
     "url-loader": "^1.1.2",
-    "webpack": "^4.27.1"
+    "webpack": "^4.27.1",
+    "webpack-node-externals": "^1.7.2"
   }
 }
