@@ -8,15 +8,17 @@ import { logger } from "./log"
 import { Logger } from "winston"
 const log: Logger = logger("main")
 
-// import cookieParser = require("cookie-parser")
-// import bodyParser = require("body-parser")
-// import compress = require("compression")
-// import methodOverride = require("method-override")
+import cookieParser = require("cookie-parser")
+import bodyParser = require("body-parser")
+import compress = require("compression")
+import methodOverride = require("method-override")
+import mustachExp = require("mustache-express")
 
 
 import { ServerLoader, ServerSettings, GlobalAcceptMimesMiddleware } from "@tsed/common"
 import "@tsed/swagger"// import swagger Ts.ED module!!!
 import * as Express from "express"
+import { react_ssr } from "./ReactSsrMiddleware"
 
 @ServerSettings({
     rootDir: Path.resolve(__dirname),
@@ -39,11 +41,6 @@ export class Server extends ServerLoader {
      */
     public $onMountingMiddlewares(): void | Promise<any> {
 
-        const cookieParser = require("cookie-parser"),
-            bodyParser = require("body-parser"),
-            compress = require("compression"),
-            methodOverride = require("method-override");
-
         this.use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())
             .use(compress({}))
@@ -55,6 +52,12 @@ export class Server extends ServerLoader {
         log.info(`static path: ${static_path}`)
         this.use("/frontend", Express.static(static_path))
 
+        this.use("/react/ssr", react_ssr)
+
+        //mustach templates
+        this.engine("html", mustachExp())
+        this.set("view engine", "html")
+        this.set("views", Path.resolve(Path.join(__dirname, "../../templates")))
     }
 
     public $onReady(): void {

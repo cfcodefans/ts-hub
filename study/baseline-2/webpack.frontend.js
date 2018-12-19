@@ -38,6 +38,9 @@ module.exports = {
         ]
     },
     externals: {
-
+        "react": "React",
+        "react-dom": "ReactDOM",
+        // "mobx-react": "MobxReact",
+        "mobx": "mobx"
     }
 }
