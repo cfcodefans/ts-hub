@@ -1,0 +1,16 @@
+{
+  "name": "media-lab",
+  "version": "1.0.0",
+  "description": "testing media features of html5 browser",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "media",
+    "typescript",
+    "html5"
+  ],
+  "author": "cfcodefans",
+  "license": "ISC"
+}

@@ -14,6 +14,11 @@ class App extends React.Component {
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <ul>
+          <li>
+            <a href="form-1.html" target="_blank">react form</a>
+          </li>
+        </ul>
       </div>
     );
   }
