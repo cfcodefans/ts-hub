@@ -2,9 +2,12 @@
   "name": "media-lab",
   "version": "1.0.0",
   "description": "testing media features of html5 browser",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"cnpm run watch\" \"cnpm run go\" ",
+    "go": "webpack-dev-server --mode development --open --hot",
+    "watch": "webpack --mode development --watch",
+    "build": "webpack --mode development"
   },
   "keywords": [
     "media",
@@ -12,5 +15,17 @@
     "html5"
   ],
   "author": "cfcodefans",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bootstrap": "^4.2.2",
+    "concurrently": "^4.1.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "jsqr": "^1.2.0"
+  }
 }

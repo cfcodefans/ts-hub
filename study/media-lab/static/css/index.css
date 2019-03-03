@@ -1,0 +1,10 @@
+#media-wrapper {
+    background: lightblue;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+video {
+    background: black;
+    border-radius: 12px;
+}
