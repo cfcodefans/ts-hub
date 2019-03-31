@@ -1,0 +1,45 @@
+{
+  "name": "baseline-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cnpm run watch\" \"cnpm run go\" ",
+    "go": "webpack-dev-server --mode development --open --hot",
+    "watch": "webpack --mode development --watch",
+    "backend": "webpack --mode development --config webpack.backend.js",
+    "frontend": "webpack --mode development --config webpack.frontend.js",
+    "prod": "node ./dist/backend/backend.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsqr": "^1.2.0",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "mime": "^2.4.0",
+    "sqlite": "^3.0.3",
+    "typescript": "^3.2.2",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.47",
+    "@types/koa-bodyparser": "^4.2.1",
+    "@types/koa-compress": "^2.0.8",
+    "@types/koa-router": "^7.0.35",
+    "@types/koa-static": "^4.0.0",
+    "@types/node": "^10.12.14",
+    "awesome-typescript-loader": "^5.2.1",
+    "file-loader": "^2.0.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^5.3.3",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
