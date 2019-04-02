@@ -9,7 +9,7 @@ import Mime = require("mime")
 import OS = require("os")
 import Path = require("path")
 
-import * as Apis from "./apis_impls"
+// import * as Apis from "./apis_impls"
 import * as Sqlite from "./sqlite_impl"
 
 import { logger } from "./log"

@@ -7,6 +7,7 @@ import { Logger } from "winston"
 const log: Logger = logger("sqlite_impls")
 
 import sqlite from "sqlite"
+import { DBResp, DBReq } from "../common/defs";
 
 const dbPromise = sqlite.open("./sqlite", { cached: true })
 
@@ -23,14 +24,14 @@ export function mount(kr: KoaRouter): KoaRouter {
     if (!!!kr) return kr
 
     kr.post("/sql/", async (ctx: Context) => {
-        let req = ctx.body
+        let req: DBReq = ctx.body as DBReq
 
         log.info(req)
 
-        let write: string = req["w"] as string
-        let read: string = req["r"] as string
+        let write: string = req.w
+        let read: string = req.r
 
-        let result: { updated: number, data: any } = { updated: -1, data: {} }
+        let result: DBResp = { updated: -1, data: {} }
 
         const db: sqlite.Database = await dbPromise
         if (write) {
@@ -38,7 +39,10 @@ export function mount(kr: KoaRouter): KoaRouter {
                 let stat = await db.run(write)
                 result.updated = stat.changes
             } catch (err) {
-                log.error(err)
+                log.error(`
+                    failed to query with ${JSON.stringify(req)} for
+                    ${err}
+                `)
                 ctx.onerror(err)
             }
         }

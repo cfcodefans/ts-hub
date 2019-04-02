@@ -7,9 +7,13 @@ const CWD = FS.realpathSync(process.cwd())
 //node dependenices on backend are placed in node_modules
 
 module.exports = {
-    entry: Path.resolve(CWD, "src/frontend/app.ts"),
+
+    entry: {
+        app: Path.resolve(CWD, "src/frontend/app.ts"),
+        add: Path.resolve(CWD, "src/frontend/add.ts")
+    },
     output: {
-        filename: "app.js",
+        filename: "[name].js",
         path: Path.resolve(CWD, "frontend/static/js"),
         publicPath: "/"
     },

@@ -4,7 +4,19 @@
     padding: 24px;
 }
 
+#indicator {
+    position: absolute;
+    z-index: 10;
+    background: transparent;
+    border: white dashed 2px;
+}
+
 video {
     background: black;
     border-radius: 12px;
+}
+
+.center-horizontal {
+    display: flex;
+    justify-content: center;
 }

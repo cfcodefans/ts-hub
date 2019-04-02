@@ -1,11 +1,11 @@
 <head>
     <meta charset="UTF-8" />
-    <title>Camera Recorder</title>
+    <title>生成道善二维码</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="https://cdn.bootcss.com/bootstrap-material-design/4.0.2/bootstrap-material-design.css"
         rel="stylesheet" />
-    <link href="/static/css/index.css" rel="stylesheet" />
+    <link href="../css/index.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--        format-detection翻译成中文的意思是“格式检测”，顾名思义，它是用来检测html里的一些格式的，那关于meta的format-detection属性主要是有以下几个设置：
 meta name="format-detection" content="telephone=no"
@@ -29,40 +29,47 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
 
 <body>
     <nav class="navbar navbar-dark bg-primary justify-content-center">
-        <h4>道善欢迎您,请打卡</h4>
+        <h4>生成道善二维码</h4>
     </nav>
+    <br />
     <div class="container">
+        <form>
+            <div class="input-group input-group-lg">
+                <input class="form-control " type="text" minlength="3" id="name" placeholder="用户名">
+                <i class="fa fa-times-circle btn-clean" onclick="cleanInput(event)"></i>
+            </div>
+        </form>
         <div class="row center-horizontal">
-            <div id="media-wrapper">
-                <video id="v" autoplay height="240" width="320">
-                </video>
-                <div id="indicator">
-
-                </div>
-            </div>
+            <i id="info"></i>
+            <canvas id='c' style="border: gray dashed 2px"></canvas>
         </div>
-        <div class="row center-horizontal" style='display: none'>
-            <input type="file" accept="video/*" capture="camera" />
-        </div>
-        <div class="row" style='display: none'>
-            <div class="center-block" id="media-wrapper">
-                <canvas id="c" width="320" height="240">
-                </canvas>
-            </div>
-        </div>
-        <div class="row">
-            <div id="info_div">
-
-            </div>
+        <br />
+        <div class="row center-horizontal">
+            <a href="#" id="download_link" class="btn btn-outline-primary btn-lg active">下载</a>
         </div>
     </div>
+
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js"></script>
 
-    <script src="/static/js/app.js"></script>
+    <script type="text/javascript">
+        function cleanInput(ev) {
+            var t = $(ev.target).siblings()[0]
+            if (!(t && "INPUT" == t.tagName.toUpperCase()
+                && (t.type == "text"
+                    || t.type == "password"
+                    || t.type == "mail"
+                    || t.type == "tel"
+                    || t.type == "number"
+                    || t.type == "file"))) return
+            t.value = ""
+        }
+    </script>
+    <script src="../js/add.js"></script>
+
 </body>
 
 </html>

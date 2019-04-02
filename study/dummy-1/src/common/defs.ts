@@ -1,7 +1,11 @@
 
-export interface IApis {
-    add(a: number, b: number): number
-    sub(a: number, b: number): number
-    mul(a: number, b: number): number
-    div(a: number, b: number): number
+export interface DBResp {
+    updated: number
+    data: any
 }
+
+export interface DBReq {
+    w: string
+    r: string
+}
+
