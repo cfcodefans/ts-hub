@@ -25,9 +25,11 @@ email=yes就开启了把文字默认为邮箱地址，这个meta就不用写了,
 address=no禁止跳转至地图！
 address=yes就开启了点击地址直接跳转至地图的功能,在默认是情况下就是开启！   -->
     <meta name="format-detection" content="telephone=no">
+    <!-- <script src="../js/commons.js"></script> -->
 </head>
 
 <body>
+
     <nav class="navbar navbar-dark bg-primary justify-content-center">
         <h4>生成道善二维码</h4>
     </nav>
@@ -36,12 +38,12 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
         <form>
             <div class="input-group input-group-lg">
                 <input class="form-control " type="text" minlength="3" id="name" placeholder="用户名">
-                <i class="fa fa-times-circle btn-clean" onclick="cleanInput(event)"></i>
+                <i class="fa fa-times-circle btn-clean" ></i>
             </div>
         </form>
         <div class="row center-horizontal">
             <i id="info"></i>
-            <canvas id='c' style="border: gray dashed 2px"></canvas>
+            <img id='c' style="border: gray dashed 2px"></img>
         </div>
         <br />
         <div class="row center-horizontal">
@@ -55,18 +57,7 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js"></script>
 
-    <script type="text/javascript">
-        function cleanInput(ev) {
-            var t = $(ev.target).siblings()[0]
-            if (!(t && "INPUT" == t.tagName.toUpperCase()
-                && (t.type == "text"
-                    || t.type == "password"
-                    || t.type == "mail"
-                    || t.type == "tel"
-                    || t.type == "number"
-                    || t.type == "file"))) return
-            t.value = ""
-        }
+    <script type="module" src="../js/commons.js">
     </script>
     <script src="../js/add.js"></script>
 
