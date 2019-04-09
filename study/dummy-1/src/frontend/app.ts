@@ -57,6 +57,10 @@ class Context {
         let v = this.v
         let ctx = this.context
 
+        const default_div = document.getElementById("default_div") as HTMLDivElement
+        const loading_div = document.getElementById("loading_div") as HTMLDivElement
+        const checked_div = document.getElementById("checked_div") as HTMLDivElement
+
         switch (this.status) {
             case STATUS.initiated: {
                 this.start()
@@ -69,23 +73,18 @@ class Context {
                     this.status = STATUS.detected
                     this.code = code
                 } else {
-                    this.info.innerHTML = `
-                    <div class="text-center"> 
-                        请出示道善二维码...
-                    </div>`
+                    default_div.removeAttribute("hidden")
+                    loading_div.setAttribute("hidden", "")
+                    checked_div.setAttribute("hidden", "")
                 }
                 break
             }
             case STATUS.detected: {
                 let code = this.code
-                this.info.innerHTML = `
-                <div class="text-center"> 
-                    正在查询您的课程...
-                    <div class="spinner-border" role="status"> 
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <button onclick="appCtx.start()">重置</button>
-                </div>`
+
+                default_div.setAttribute("hidden", "")
+                loading_div.removeAttribute("hidden")
+
                 getMemberInfo(code)
                     .then((member: IMember) => {
                         if (this.status != STATUS.detected) {
@@ -93,11 +92,8 @@ class Context {
                             return
                         }
 
-                        this.info.innerHTML = `
-                        <div class="text-center"> 
-                            欢迎您, 尊敬的 ${member.name}
-                            已经打卡于 ${Date.now().toLocaleString()}                                
-                        </div>`
+                        loading_div.setAttribute("hidden", "")
+                        checked_div.removeAttribute("hidden")
                         this.status = STATUS.found
                     })
                 break
