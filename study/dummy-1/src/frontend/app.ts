@@ -121,6 +121,7 @@ function getCodeDataFromVideo(v: HTMLVideoElement, ctx: CanvasRenderingContext2D
     const imgData: ImageData = ctx.getImageData(0, 0, WIDTH, HEIGHT)
     const qr: QRCode = jsqr(imgData.data, WIDTH, HEIGHT) as QRCode
     if (!!qr) {
+        console.info(JSON.stringify(qr))
         return qr.data
     }
     return ""
@@ -156,7 +157,7 @@ async function layout() {
         return
     }
 
-    let ms: MediaStream = await md.getUserMedia({ audio: false, video: { width: WIDTH, height: HEIGHT } })
+    let ms: MediaStream = await md.getUserMedia({ audio: false, video: { width: WIDTH, height: HEIGHT, facingMode: "environment" } })
     v.srcObject = ms
 }
 
@@ -166,7 +167,9 @@ async function main() {
     await layout()
     let c: HTMLCanvasElement = document.createElement("canvas") as HTMLCanvasElement
     let v: HTMLVideoElement = document.getElementById('v') as HTMLVideoElement
-    v.play()
+    await v.play()
+    c.width = v.videoWidth
+    c.height = v.videoHeight
     appCtx = new Context(v, c, document.getElementById("info_div") as HTMLDivElement)
 
     appCtx.start()

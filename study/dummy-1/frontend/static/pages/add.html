@@ -38,16 +38,23 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
         <form>
             <div class="input-group input-group-lg">
                 <input class="form-control " type="text" minlength="3" id="name" placeholder="用户名">
-                <i class="fa fa-times-circle btn-clean" ></i>
+                <i class="fa fa-times-circle btn-clean"></i>
             </div>
         </form>
         <div class="row center-horizontal">
             <i id="info"></i>
-            <img id='c' style="border: gray dashed 2px"></img>
+            <canvas id='c' style="border: gray dashed 2px"></canvas>
         </div>
         <br />
         <div class="row center-horizontal">
-            <a href="#" id="download_link" class="btn btn-outline-primary btn-lg active">下载</a>
+            <a>
+                <button id="download_btn" class="btn btn-outline-primary btn-lg active" disabled>
+                    下载
+                </button>
+            </a>
+        </div>
+        <div class="row center-horizontal">
+            <img id="logo40_40" src="../images/ds-logo-40x40.png" style="display:none">
         </div>
     </div>
 
