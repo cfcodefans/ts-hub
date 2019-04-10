@@ -1,31 +1,14 @@
 import jsqr from "jsqr"
 import { QRCode } from "jsqr"
-import { DBResp, DBReq } from "../common/defs";
+import { DBResp, DBReq } from "../common/defs"
+import { query, dateToStr } from "./commons"
+import { getMemberInfo, IMember } from "./member_opers";
 
 let WIDTH = 320
 let HEIGHT = 240
 
 enum STATUS {
-    started, stopped, paused, initiated, found, detected
-}
-
-interface IMember {
-    id: number
-    name: string
-    mark: string
-    note: string
-}
-
-async function query(dbReq: DBReq): Promise<any> {
-    return fetch("/sql/", {
-        method: "POST",
-        body: JSON.stringify(dbReq)
-    }).then((resp: Response) => resp.json())
-        .catch((reason) => console.error(`failed to query with \n\t${JSON.stringify(dbReq)}\n\tfor ${reason}`))
-}
-
-async function getMemberInfo(code: string): Promise<IMember> {
-    return query({ r: `select * from member where mark=${code}`, w: "" })
+    started, stopped, paused, initiated, found, not_found, detected
 }
 
 class Context {
@@ -46,6 +29,7 @@ class Context {
 
     start() {
         let v = this.v
+        this.code = ''
         if (v.paused) {
             v.play()
         }
@@ -91,9 +75,27 @@ class Context {
                             console.info("already reset!")
                             return
                         }
-
                         loading_div.setAttribute("hidden", "")
                         checked_div.removeAttribute("hidden")
+
+                        if (!!!member) {
+                            this.status = STATUS.not_found
+                            return
+                        }
+
+                        checked_div.innerHTML = `
+                        <p>欢迎您, 尊敬的 ${member.name}</p>
+                        <p>打卡于 ${dateToStr(new Date())}</p>`
+                        this.status = STATUS.found
+                    }).catch((reason: any) => {
+                        console.error(JSON.stringify(reason))
+                        loading_div.setAttribute("hidden", "")
+                        checked_div.removeAttribute("hidden")
+                        checked_div.innerHTML = `
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">查询失败...</span>
+                        </div>
+                        <button onclick="appCtx.start()">重置</button>`
                         this.status = STATUS.found
                     })
                 break
@@ -101,6 +103,17 @@ class Context {
             case STATUS.found: {
                 if (this.statusCnt <= 8) {
                     this.statusCnt++
+                } else {
+                    this.start()
+                }
+                break
+            }
+            case STATUS.not_found: {
+                if (this.statusCnt <= 8) {
+                    this.statusCnt++
+                    checked_div.innerHTML = `
+                    <p>抱歉, 没有找到 ${this.code} 对应记录<p/>
+                    <p>${Math.ceil(this.statusCnt / (1000 / 500)) + 1}秒后请重试</p>`
                 } else {
                     this.start()
                 }
@@ -136,16 +149,6 @@ async function layout() {
     v.width = WIDTH = width - 24
     v.height = HEIGHT = Math.floor(WIDTH * 0.75)
 
-    let ind: HTMLDivElement = document.getElementById("indicator") as HTMLDivElement
-    {
-        let vRect = v.getBoundingClientRect()
-        ind.style.left = `${vRect.left + 12}`
-        ind.style.top = `${vRect.top + 12}`
-        ind.style.width = `${vRect.width - 24}`
-        ind.style.height = `${vRect.height - 24}`
-        ind.style.right = `${vRect.right - 12}`
-        ind.style.bottom = `${vRect.bottom - 12}`
-    }
     const md: MediaDevices = navigator.mediaDevices
     //Get access to the camera!
     if (!(md && md.getUserMedia)) {

@@ -2,8 +2,9 @@
 create table member (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    mark TEXT,
-    note TEXT
+    mark TEXT UNIQUE,
+    note TEXT,
+    time INTEGER
 );
 
 create table records (

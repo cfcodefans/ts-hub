@@ -2,6 +2,7 @@
     background: lightblue;
     border-radius: 12px;
     padding: 24px;
+    position: relative;
 }
 
 #indicator {
@@ -9,6 +10,11 @@
     z-index: 10;
     background: transparent;
     border: white dashed 2px;
+    border-radius: 12px;
+    top: 36px;
+    left: 36px;
+    right: 36px;
+    bottom: 36px;
 }
 
 video {

@@ -2,6 +2,7 @@
 import _ from "lodash"
 import $ from "jquery"
 import qrcode from "qrcode"
+import { saveMembereInfo, IMember } from "./member_opers";
 
 function getDownloadButton(): HTMLButtonElement {
     return document.getElementById("download_btn") as HTMLButtonElement
@@ -14,18 +15,6 @@ function getCanvas(): HTMLCanvasElement {
 function toggleDownloadBtn(flag: boolean) {
     const downloadBtn = getDownloadButton()
     downloadBtn.disabled = !flag
-    // if (!flag) {
-    //     downloadBtn.classList.remove("active")
-    //     downloadBtn.classList.add("disabled")
-    // } else {
-    //     downloadBtn.classList.remove("disabled")
-    //     downloadBtn.classList.add("active")
-    // }
-    // if (!flag) {
-    //     const link: HTMLAnchorElement = downloadBtn.children[0] as HTMLAnchorElement
-    //     delete link.download
-    //     delete link.href
-    // }
 }
 
 function layout() {
@@ -38,7 +27,6 @@ function layout() {
 function cleanImg(img: HTMLCanvasElement) {
     const ctx: CanvasRenderingContext2D = img.getContext("2d")!
     ctx.clearRect(0, 0, img.width, img.height)
-
     toggleDownloadBtn(false)
 }
 
@@ -77,12 +65,24 @@ function init() {
     input.addEventListener("clean", onInputChange)
 
     const downloadBtn: HTMLButtonElement = getDownloadButton()
-    downloadBtn.onclick = (ev: MouseEvent) => {
-        const c: HTMLCanvasElement = getCanvas()
-        const imgData: string = c.toDataURL("image/png").replace("image/png", "image/octet-stream")
-        const link: HTMLAnchorElement = downloadBtn.parentElement as HTMLAnchorElement
-        link.download = `道善二维码-${input.value}.png`
-        link.href = imgData
+    downloadBtn.onclick = async (ev: MouseEvent) => {
+        downloadBtn.value = "生成中..."
+        downloadBtn.disabled = true
+        
+        const member: IMember = await saveMembereInfo(input.value)
+        downloadBtn.value = "确定下载"
+        downloadBtn.disabled = false
+
+        if (member) {
+            const c: HTMLCanvasElement = getCanvas()
+            const imgData: string = c.toDataURL("image/png").replace("image/png", "image/octet-stream")
+            const link: HTMLAnchorElement = downloadBtn.parentElement as HTMLAnchorElement
+            link.download = `道善二维码-${input.value}.png`
+            link.href = imgData
+            return
+        } else {
+
+        }
     }
 }
 

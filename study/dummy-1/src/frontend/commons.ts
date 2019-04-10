@@ -1,4 +1,5 @@
 import $ from "jquery"
+import { DBResp, DBReq } from "../common/defs"
 
 export const cleanInput = (ev: Event) => {
     let t = $(ev.currentTarget as HTMLElement).siblings()[0]
@@ -18,3 +19,17 @@ export const cleanInput = (ev: Event) => {
 
 $(".btn-clean").on("click", cleanInput)
 //onclick="cleanInput(event)"
+
+export async function query(dbReq: DBReq): Promise<any> {
+    return fetch("/sql/", {
+        headers: [["content-type", "application/json"],
+        ["Accept", "application/json"]],
+        method: "POST",
+        body: JSON.stringify(dbReq)
+    }).then((resp: Response) => resp.json())
+        .catch((reason) => console.error(`failed to query with \n\t${JSON.stringify(dbReq)}\n\tfor ${reason}`))
+}
+
+export function dateToStr(d: Date): string {
+    return `${d.getFullYear()}年${d.getMonth()}月${d.getDate()}日 ${d.getHours()}点${d.getMinutes()}分`
+}
