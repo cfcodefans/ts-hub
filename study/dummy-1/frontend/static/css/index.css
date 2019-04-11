@@ -44,3 +44,7 @@ video {
     border-radius: 12px;
     text-align: center;
 }
+
+.navbar-form-search {
+    position: relative;
+}

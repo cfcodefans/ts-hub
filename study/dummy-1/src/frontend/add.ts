@@ -44,10 +44,10 @@ function generatorQRCode(img: HTMLCanvasElement, data: string) {
             const cw = img.width
             const ch = img.height
             ctx.drawImage(logo40_40,
-                cw * 0.4,
-                ch * 0.4,
-                cw * 0.2,
-                ch * 0.2)
+                cw * 0.35,
+                ch * 0.35,
+                cw * 0.3,
+                ch * 0.3)
             toggleDownloadBtn(true)
         })
 }
@@ -68,8 +68,8 @@ function init() {
     downloadBtn.onclick = async (ev: MouseEvent) => {
         downloadBtn.value = "生成中..."
         downloadBtn.disabled = true
-        
-        const member: IMember = await saveMembereInfo(input.value)
+
+        const member: IMember | null = await saveMembereInfo(input.value)
         downloadBtn.value = "确定下载"
         downloadBtn.disabled = false
 
@@ -81,7 +81,7 @@ function init() {
             link.href = imgData
             return
         } else {
-
+            window.alert("操作失败,请联系技术支持.")
         }
     }
 }

@@ -11,7 +11,8 @@ module.exports = {
     entry: {
         app: Path.resolve(CWD, "src/frontend/app.ts"),
         commons: Path.resolve(CWD, "src/frontend/commons.ts"),
-        add: Path.resolve(CWD, "src/frontend/add.ts")
+        add: Path.resolve(CWD, "src/frontend/add.ts"),
+        list: Path.resolve(CWD, "src/frontend/list.ts"),
     },
     output: {
         filename: "[name].js",

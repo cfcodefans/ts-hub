@@ -33,3 +33,7 @@ export async function query(dbReq: DBReq): Promise<any> {
 export function dateToStr(d: Date): string {
     return `${d.getFullYear()}年${d.getMonth()}月${d.getDate()}日 ${d.getHours()}点${d.getMinutes()}分`
 }
+
+export function head<T>(array: T[]): T | null {
+    return array && array.length > 0 ? array[0] : null
+}

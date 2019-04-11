@@ -2,7 +2,7 @@ import jsqr from "jsqr"
 import { QRCode } from "jsqr"
 import { DBResp, DBReq } from "../common/defs"
 import { query, dateToStr } from "./commons"
-import { getMemberInfo, IMember } from "./member_opers";
+import { getMemberInfo, IMember, saveCheckInRecord } from "./member_opers";
 
 let WIDTH = 320
 let HEIGHT = 240
@@ -70,7 +70,7 @@ class Context {
                 loading_div.removeAttribute("hidden")
 
                 getMemberInfo(code)
-                    .then((member: IMember) => {
+                    .then((member: IMember | null) => {
                         if (this.status != STATUS.detected) {
                             console.info("already reset!")
                             return
@@ -86,6 +86,7 @@ class Context {
                         checked_div.innerHTML = `
                         <p>欢迎您, 尊敬的 ${member.name}</p>
                         <p>打卡于 ${dateToStr(new Date())}</p>`
+                        saveCheckInRecord(member)
                         this.status = STATUS.found
                     }).catch((reason: any) => {
                         console.error(JSON.stringify(reason))
