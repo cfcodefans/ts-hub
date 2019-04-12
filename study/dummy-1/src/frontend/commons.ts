@@ -1,16 +1,18 @@
-import $ from "jquery"
-import { DBResp, DBReq } from "../common/defs"
+import { DBReq } from "../common/defs"
 
-export const cleanInput = (ev: Event) => {
-    let t = $(ev.currentTarget as HTMLElement).siblings()[0]
+export function cleanInput(ev: Event) {
+    let s = ev.currentTarget as HTMLElement
+    let t = s.parentElement!.children.item(0)
     if (!(t instanceof HTMLInputElement)) return
     var _type = t.type
+
     if (!(_type == "text"
         || _type == "password"
         || _type == "mail"
         || _type == "tel"
         || _type == "number"
-        || _type == "file"))
+        || _type == "file"
+        || _type == "date"))
         return
 
     t.value = ""
@@ -18,7 +20,6 @@ export const cleanInput = (ev: Event) => {
 }
 
 $(".btn-clean").on("click", cleanInput)
-//onclick="cleanInput(event)"
 
 export async function query(dbReq: DBReq): Promise<any> {
     return fetch("/sql/", {
@@ -36,4 +37,16 @@ export function dateToStr(d: Date): string {
 
 export function head<T>(array: T[]): T | null {
     return array && array.length > 0 ? array[0] : null
+}
+
+export function isEmpty(str: string | null): boolean {
+    return (!!!str) || str.length == 0
+}
+
+export function isArrayEmpty<T>(array: T[] | null): boolean {
+    return (!!!array) || array.length == 0
+}
+
+export function isBlank(str: string | null): boolean {
+    return isEmpty(str) || isEmpty(str!.trim())
 }

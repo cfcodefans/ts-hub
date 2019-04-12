@@ -1,8 +1,6 @@
 
-import _ from "lodash"
-import $ from "jquery"
 import qrcode from "qrcode"
-import { saveMembereInfo, IMember } from "./member_opers";
+import { IMember, saveMembereInfo } from "./member_opers"
 
 function getDownloadButton(): HTMLButtonElement {
     return document.getElementById("download_btn") as HTMLButtonElement
@@ -51,6 +49,7 @@ function generatorQRCode(img: HTMLCanvasElement, data: string) {
             toggleDownloadBtn(true)
         })
 }
+
 
 function onInputChange(ev: Event) {
     const input: HTMLInputElement = ev.srcElement! as HTMLInputElement

@@ -1,7 +1,5 @@
-import jsqr from "jsqr"
-import { QRCode } from "jsqr"
-import { DBResp, DBReq } from "../common/defs"
-import { query, dateToStr } from "./commons"
+import jsqr, { QRCode } from "jsqr";
+import { dateToStr } from "./commons";
 import { getMemberInfo, IMember, saveCheckInRecord } from "./member_opers";
 
 let WIDTH = 320

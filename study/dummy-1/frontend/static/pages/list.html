@@ -37,24 +37,23 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
         </button>
 
         <div class="collapse navbar-collapse" id="searchPanel">
-            <form class="text-center">
+            <form class="text-center" id="search_form">
                 <div class="row">
                     <div class="col-sm-12 mb-0">
-                        <div class="md-form mb-0 form-sm">
-                            <input type="text" id="member_name" class="form-control">
+                        <div class="md-form form-sm">
+                            <input maxlength="10" type="text" id="member_name" class="form-control">
                             <label for="member_name" class="text-white">用户名</label>
+                            <i class="fa fa-times-circle btn-clean"></i>
                         </div>
                     </div>
-                </div>
-                <!--Grid row-->
-                <div class="row">
+
                     <!--Grid column-->
                     <div class="col-sm-6 mb-0">
                         <div class="md-form form-sm">
                             <!--The "from" Date Picker -->
-                            <input placeholder="Selected starting date" type="text" id="startingDate"
-                                class="form-control datepicker">
-                            <label for="startingDate" class="text-white">开始日期</label>
+                            <input type="date" id="startDate" class="form-control datepicker">
+                            <label for="startDate" class="text-white">开始日期</label>
+                            <i class="fa fa-times-circle btn-clean"></i>
                         </div>
 
                     </div>
@@ -63,27 +62,37 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
                     <div class="col-sm-6 mb-0">
                         <div class="md-form form-sm">
                             <!--The "to" Date Picker -->
-                            <input placeholder="Selected ending date" type="text" id="endingDate"
-                                class="form-control datepicker">
-                            <label for="endingDate" class="text-white">结束日期</label>
+                            <input type="date" id="endDate" class="form-control datepicker">
+                            <label for="endDate" class="text-white">结束日期</label>
+                            <i class="fa fa-times-circle btn-clean"></i>
                         </div>
                     </div>
                     <!--Grid column-->
                 </div>
                 <!--Grid row-->
+                <div class="row align-items-center">
+                    <div class="col-sm btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn text-white btn-secondary btn-sm"
+                            onclick="search_form.reset()">重置</button>
+                        <button type="button" class="btn text-white btn-primary btn-sm" id="search_btn">查询</button>
+                    </div>
+                </div>
             </form>
         </div>
     </nav>
 
     <div class="container">
-        <div class="row center-horizontal">
+        <hr/>
+        <ul class="list-group" id="result_list">
 
-        </div>
+        </ul>
     </div>
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+    <script type="module" src="../js/commons.js">
+    </script>
     <script src="/static/js/mdb.min.js"></script>
     <script src="/static/js/list.js"></script>
 </body>
