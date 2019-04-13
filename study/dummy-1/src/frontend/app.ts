@@ -1,6 +1,6 @@
 import jsqr, { QRCode } from "jsqr";
-import { dateToStr } from "./commons";
-import { getMemberInfo, IMember, saveCheckInRecord } from "./member_opers";
+import { dateToStr } from "../common/defs"
+import { getMemberInfo, IMember, saveCheckInRecord } from "./member_opers"
 
 let WIDTH = 320
 let HEIGHT = 240

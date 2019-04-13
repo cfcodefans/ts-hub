@@ -1,5 +1,6 @@
 import { DBResp } from "../common/defs"
-import { query, head, isBlank } from "./commons"
+import { head, isBlank } from "../common/defs"
+import { query } from "./commons"
 
 export interface IMember {
     id: number
@@ -23,18 +24,20 @@ export async function getMemberInfo(code: string): Promise<IMember | null> {
 }
 
 export async function saveMembereInfo(code: string): Promise<IMember | null> {
+    let _try = await getMemberInfo(code)
+    if (!!_try) return _try
+
     return query({
         r: `select * from member where mark='${code}'`,
         w: `insert into member (name, mark, time) 
-            values ('${code}', '${code}', ${Date.now()})
-            on conflict(mark) do update set time = ${Date.now()}`
+            values ('${code}', '${code}', ${Date.now()})`
     }).then((value: DBResp) => head(value.data))
 }
 
 export async function saveCheckInRecord(member: IMember): Promise<IRecord> {
     const now: number = Date.now()
     return query({
-        r: `select * from record where member_id=${member.id} and mark='${now}'`,
+        r: `select * from records where member_id=${member.id} and mark='${now}'`,
         w: `insert into records (member_id, time, mark, note) 
             values ('${member.id}', ${now}, '${now}', '')`
     }).then((value: DBResp) => head(value.data) as IRecord)
@@ -54,7 +57,7 @@ export async function searchRecords(
                                 m.mark as m_mark,
                                 m.note as m_note,
                                 m.time as m_time
-                                  from records r join member m on r.member_id = m.id where true 
+                                  from records r join member m on r.member_id = m.id where 1=1 
                 ${isBlank(member_name) ? '' : ` and m.mark like '%${member_name}%' `}
                 ${!!!startDate ? '' : ` and time >= ${startDate.getTime()} `}
                 ${!!!endDate ? '' : ` and time <= ${endDate.getTime()} `}`

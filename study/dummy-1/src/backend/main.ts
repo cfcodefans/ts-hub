@@ -10,7 +10,7 @@ import OS = require("os")
 import Path = require("path")
 
 // import * as Apis from "./apis_impls"
-import * as Sqlite from "./sqlite_impl"
+import * as Sql from "./sql_impl"
 
 import { logger } from "./log"
 import { Logger } from "winston"
@@ -51,7 +51,7 @@ function main(): void {
     }).get("/static/(.*)", _static) //there must be (.*), otherwise it wont be directed to static
 
     // Apis.mount(router)
-    Sqlite.mount(router)
+    Sql.mount(router)
 
 
     app.use(router.routes())

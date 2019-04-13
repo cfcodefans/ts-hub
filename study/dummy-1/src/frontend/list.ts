@@ -1,5 +1,5 @@
 import { searchRecords, IRecord } from "./member_opers"
-import { dateToStr, isArrayEmpty } from "./commons"
+import { dateToStr, isArrayEmpty } from "../common/defs"
 
 
 async function main() {

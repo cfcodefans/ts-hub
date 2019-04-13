@@ -24,3 +24,15 @@ export class Holder<T> {
         this._value = v
     }
 }
+
+
+export interface DBResp {
+    updated: number
+    data: any
+}
+
+export interface DBReq {
+    w: string
+    r: string
+}
+
