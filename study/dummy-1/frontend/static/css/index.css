@@ -1,7 +1,4 @@
 #media-wrapper {
-    background: lightblue;
-    border-radius: 12px;
-    padding: 24px;
     position: relative;
 }
 
@@ -19,7 +16,6 @@
 
 video {
     background: black;
-    border-radius: 12px;
 }
 
 .center-horizontal {

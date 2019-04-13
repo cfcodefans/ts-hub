@@ -1,6 +1,7 @@
 import jsqr, { QRCode } from "jsqr";
 import { dateToStr } from "../common/defs"
 import { getMemberInfo, IMember, saveCheckInRecord } from "./member_opers"
+import { speak } from "./commons";
 
 let WIDTH = 320
 let HEIGHT = 240
@@ -81,10 +82,11 @@ class Context {
                             return
                         }
 
+                        saveCheckInRecord(member)
                         checked_div.innerHTML = `
                         <p>欢迎您, 尊敬的 ${member.name}</p>
                         <p>打卡于 ${dateToStr(new Date())}</p>`
-                        saveCheckInRecord(member)
+                        speak("打卡成功")
                         this.status = STATUS.found
                     }).catch((reason: any) => {
                         console.error(JSON.stringify(reason))
@@ -144,9 +146,9 @@ async function layout() {
         return
     }
 
-    let width: number = document.body.clientWidth;
-    v.width = WIDTH = width - 24
-    v.height = HEIGHT = Math.floor(WIDTH * 0.75)
+    let width: number = document.body.clientWidth
+    v.width = WIDTH = width
+    v.height = HEIGHT = WIDTH
 
     const md: MediaDevices = navigator.mediaDevices
     //Get access to the camera!
@@ -155,8 +157,24 @@ async function layout() {
         return
     }
 
-    let ms: MediaStream = await md.getUserMedia({ audio: false, video: { width: WIDTH, height: HEIGHT, facingMode: "environment" } })
-    v.srcObject = ms
+    try {
+        let ms: MediaStream = await md.getUserMedia({
+            audio: false,
+            video: {
+                width: WIDTH,
+                height: HEIGHT,
+                aspectRatio: { exact: WIDTH / HEIGHT },
+                facingMode: { ideal: "environment" }
+            }
+        })
+
+        let vts = ms.getVideoTracks()
+        let vt = vts[0]
+        console.info(JSON.stringify(vt.getSettings()))
+        v.srcObject = ms
+    } catch (err) {
+        window.alert("摄像头错误" + JSON.stringify(err))
+    }
 }
 
 let appCtx: Context

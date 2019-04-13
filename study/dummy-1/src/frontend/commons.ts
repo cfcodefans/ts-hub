@@ -31,3 +31,20 @@ export async function query(dbReq: DBReq): Promise<any> {
     }).then((resp: Response) => resp.json())
         .catch((reason) => console.error(`failed to query with \n\t${JSON.stringify(dbReq)}\n\tfor ${reason}`))
 }
+
+
+export function speak(text: string) {
+    try {
+        
+        const synth: SpeechSynthesis = window.speechSynthesis
+        const zh: SpeechSynthesisVoice = synth.getVoices().find((v: SpeechSynthesisVoice) => v.lang == "zh-CN")!
+        // window.alert(JSON.stringify(synth.getVoices()))
+        const utter = new SpeechSynthesisUtterance(text)
+        utter.voice = zh
+        // utter.rate = 1
+        // utter.pitch = 1
+        synth.speak(utter)
+    } catch (err) {
+        window.alert(JSON.stringify(err))
+    }
+}
