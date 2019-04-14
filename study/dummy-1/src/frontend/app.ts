@@ -1,7 +1,7 @@
 import jsqr, { QRCode } from "jsqr";
 import { dateToStr } from "../common/defs"
 import { getMemberInfo, IMember, saveCheckInRecord } from "./member_opers"
-import { speak } from "./commons";
+import { speak, getUrlParams } from './commons';
 
 let WIDTH = 320
 let HEIGHT = 240
@@ -86,7 +86,7 @@ class Context {
                         checked_div.innerHTML = `
                         <p>欢迎您, 尊敬的 ${member.name}</p>
                         <p>打卡于 ${dateToStr(new Date())}</p>`
-                        speak("打卡成功")
+                        speak("checked")
                         this.status = STATUS.found
                     }).catch((reason: any) => {
                         console.error(JSON.stringify(reason))
@@ -157,6 +157,8 @@ async function layout() {
         return
     }
 
+    const facingModeParam:string = getUrlParams()["face"] || "environment"
+
     try {
         let ms: MediaStream = await md.getUserMedia({
             audio: false,
@@ -164,7 +166,7 @@ async function layout() {
                 width: WIDTH,
                 height: HEIGHT,
                 aspectRatio: { exact: WIDTH / HEIGHT },
-                facingMode: { ideal: "environment" }
+                facingMode: { ideal: facingModeParam }
             }
         })
 

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>生成道善二维码</title>
+    <title>手动打卡</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/5.8.1/css/all.css" rel="stylesheet" />
     <link href="/static/css/mdb.min.css" rel="stylesheet" />
@@ -33,7 +33,7 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
 
 <body>
     <nav class="navbar navbar-dark bg-primary justify-content-center">
-        <h4>生成道善二维码</h4>
+        <h4>手动打卡</h4>
     </nav>
     <div class="container">
         <form>
@@ -43,14 +43,9 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
             </div>
         </form>
         <div class="row center-horizontal">
-            <i id="info"></i>
-            <canvas id='c' style="border: gray dashed 2px; border-radius: 12px"></canvas>
-        </div>
-        <br />
-        <div class="row center-horizontal">
             <a>
-                <button id="download_btn" class="btn btn-outline-primary btn-lg active" disabled>
-                    确定下载
+                <button id="add_btn" class="btn btn-outline-primary btn-lg active">
+                    打卡
                 </button>
             </a>
         </div>
@@ -65,7 +60,7 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js"></script>
 
-    <script src="../js/add.js"></script>
+    <script src="../js/check1.js"></script>
 
 </body>
 

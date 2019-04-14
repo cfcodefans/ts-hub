@@ -35,9 +35,9 @@ export async function query(dbReq: DBReq): Promise<any> {
 
 export function speak(text: string) {
     try {
-        
+
         const synth: SpeechSynthesis = window.speechSynthesis
-        const zh: SpeechSynthesisVoice = synth.getVoices().find((v: SpeechSynthesisVoice) => v.lang == "zh-CN")!
+        const zh: SpeechSynthesisVoice = synth.getVoices().find((v: SpeechSynthesisVoice) => v.lang == "en_US")!
         // window.alert(JSON.stringify(synth.getVoices()))
         const utter = new SpeechSynthesisUtterance(text)
         utter.voice = zh
@@ -47,4 +47,14 @@ export function speak(text: string) {
     } catch (err) {
         window.alert(JSON.stringify(err))
     }
+}
+
+export function getUrlParams(): { [k: string]: string } {
+    var vars: { [k: string]: string } = {};
+    var parts = window.location.href.replace("/[?&]+([^=&]+)=([^&]*)/gi",
+        (m, key, value) => {
+            vars[key] = value
+            return ""
+        })
+    return vars
 }

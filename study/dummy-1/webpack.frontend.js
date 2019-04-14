@@ -12,6 +12,7 @@ module.exports = {
         app: Path.resolve(CWD, "src/frontend/app.ts"),
         commons: Path.resolve(CWD, "src/frontend/commons.ts"),
         add: Path.resolve(CWD, "src/frontend/add.ts"),
+        check1: Path.resolve(CWD, "src/frontend/check1.ts"),
         list: Path.resolve(CWD, "src/frontend/list.ts"),
     },
     output: {
