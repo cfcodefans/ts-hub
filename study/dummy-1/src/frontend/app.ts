@@ -157,7 +157,7 @@ async function layout() {
         return
     }
 
-    const facingModeParam:string = getUrlParams()["face"] || "environment"
+    const facingModeParam:string = getUrlParams()["face"] || "user"
 
     try {
         let ms: MediaStream = await md.getUserMedia({
