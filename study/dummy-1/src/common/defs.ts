@@ -13,6 +13,10 @@ export function dateToStr(d: Date): string {
     return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}点${d.getMinutes()}分`
 }
 
+export function dateToVal(d: Date): string {
+    return d.toJSON().slice(0, 10)
+}
+
 export function head<T>(array: T[]): T | null {
     return array && array.length > 0 ? array[0] : null
 }

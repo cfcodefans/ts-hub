@@ -85,11 +85,28 @@ address=yes就开启了点击地址直接跳转至地图的功能,在默认是�
         </div>
     </nav>
 
-    <div class="container">
-        <hr />
-        <ul class="list-group" id="result_list">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="record-tab" data-toggle="tab" href="#record_tab" role="tab" aria-controls="home"
+                aria-selected="true">打卡记录</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="stat-tab" data-toggle="tab" href="#stat_tab" role="tab" aria-controls="profile"
+                aria-selected="false">打卡统计</a>
+        </li>
+    </ul>
 
-        </ul>
+    <div class="tab-content">
+        <div id="record_tab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+            <ul class="list-group" id="result_list">
+
+            </ul>
+        </div>
+        <div id="stat_tab" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
+            <ul class="list-group" id="stat_list">
+
+            </ul>
+        </div>
     </div>
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
