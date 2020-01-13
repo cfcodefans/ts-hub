@@ -2,3 +2,4 @@ node_modules
 target
 *.log
 dist
+/study/dummy-1/sqlite
